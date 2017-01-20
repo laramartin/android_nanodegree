@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,11 +29,12 @@
         android:textSize="42sp"
         tools:text="#42" />
 
-    <!--TODO (1) Add a TextView with id "@+id/tv_view_holder_instance-->
-    <!--TODO (2) Set the style to @style/TextAppearance.AppCompat.Title-->
-    <!--TODO (3) Set the width and the height to wrap_content-->
-    <!--TODO (4) Align the TextView to the end of the parent-->
-    <!--TODO (5) Align the TextView in the center vertically-->
-    <!--TODO (6) Set the font family to monospace-->
-    <!--TODO (7) Set the text color to "#000"-->
+    <TextView
+        android:id="@+id/tv_view_holder_instance"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:layout_gravity="center_vertical|end"
+        android:textColor="#000" />
 </FrameLayout>
