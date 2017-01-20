@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
      */
     private GreenAdapter mAdapter;
     private RecyclerView mNumbersList;
+    private Toast mToast;
 
-    Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
     public void onListItemClick(int clickedItemIndex) {
         if (mToast != null) {
             mToast.cancel();
-        } else {
-            mToast.makeText(this, "item clicked: " + clickedItemIndex, Toast.LENGTH_SHORT).show();
         }
+        mToast = Toast.makeText(this, "item clicked: " + clickedItemIndex, Toast.LENGTH_SHORT);
+        mToast.show();
     }
 }
