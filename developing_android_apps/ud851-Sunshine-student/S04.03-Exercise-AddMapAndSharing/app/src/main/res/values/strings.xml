@@ -131,6 +131,10 @@
     <string name="condition_962">Hurricane</string>
 
     <string name="condition_unknown">Unknown (<xliff:g id="conditionId">%1$d</xliff:g>)</string>
+    <string name="map">Map</string>
+    <string name="share">Share</string>
+    <string name="share_weather_details_title">Share Weather Details</string>
+    <string name="text_plain">text/plain</string>
 
 
     <!-- - - - - - - - - - - -->
