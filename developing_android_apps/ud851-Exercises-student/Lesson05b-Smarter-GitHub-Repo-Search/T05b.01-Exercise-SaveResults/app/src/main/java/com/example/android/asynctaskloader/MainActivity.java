@@ -32,9 +32,9 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (1) Create a static final key to store the query's URL
+    private static final String SEARCH_URL_QUERY = "query";
 
-    // TODO (2) Create a static final key to store the search's raw JSON
+    private static final String SEARCH_RESULTS_RAW_JSON = "results";
 
     private EditText mSearchBoxEditText;
 
@@ -59,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
-        // TODO (9) If the savedInstanceState bundle is not null, set the text of the URL and search results TextView respectively
+        if (savedInstanceState != null) {
+            mUrlDisplayTextView.setText(savedInstanceState.getCharSequence(SEARCH_URL_QUERY));
+            mSearchResultsTextView.setText(savedInstanceState.getCharSequence(SEARCH_RESULTS_RAW_JSON));
+        }
     }
 
     /**
@@ -151,13 +154,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO (3) Override onSaveInstanceState to persist data across Activity recreation
-    // Do the following steps within onSaveInstanceState
-    // TODO (4) Make sure super.onSaveInstanceState is called before doing anything else
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String queryUrl = mUrlDisplayTextView.getText().toString();
+        outState.putCharSequence(SEARCH_URL_QUERY, queryUrl);
 
-    // TODO (5) Put the contents of the TextView that contains our URL into a variable
-    // TODO (6) Using the key for the query URL, put the string in the outState Bundle
-
-    // TODO (7) Put the contents of the TextView that contains our raw JSON search results into a variable
-    // TODO (8) Using the key for the raw JSON search results, put the search results into the outState Bundle
+        String searchRawJason = mSearchResultsTextView.getText().toString();
+        outState.putCharSequence(SEARCH_RESULTS_RAW_JSON, searchRawJason);
+    }
 }
