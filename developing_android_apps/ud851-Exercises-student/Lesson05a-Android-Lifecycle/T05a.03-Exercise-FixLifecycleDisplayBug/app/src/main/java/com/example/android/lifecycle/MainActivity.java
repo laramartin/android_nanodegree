@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
      * "Reset Log"
      */
     private TextView mLifecycleDisplay;
-    List<String> mLifecycleCallbacks = new ArrayList<>();
+    static final List<String> mLifecycleCallbacks = new ArrayList<>();
 
     /**
      * Called when the activity is first created. This is where you should do all of your normal
