@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (savedInstanceState != null) {
             String queryUrl = savedInstanceState.getString(SEARCH_QUERY_URL_EXTRA);
+            mUrlDisplayTextView.setText(queryUrl);
         }
 
         getSupportLoaderManager().initLoader(GITHUB_SEARCH_LOADER, null, this);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
 
         Bundle queryBundle = new Bundle();
-        queryBundle.putString(SEARCH_QUERY_URL_EXTRA, githubQuery);
+        queryBundle.putString(SEARCH_QUERY_URL_EXTRA, githubSearchUrl.toString());
 
         LoaderManager loaderManager = getSupportLoaderManager();
         loaderManager.getLoader(3);
