@@ -22,8 +22,12 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".VisualizerActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".VisualizerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VisualizerActivity" />
+        </activity>
     </application>
 
 </manifest>
