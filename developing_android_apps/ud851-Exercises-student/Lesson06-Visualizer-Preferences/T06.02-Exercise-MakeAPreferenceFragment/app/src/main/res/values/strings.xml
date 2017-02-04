@@ -3,6 +3,10 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="show_bass">Show Bass</string>
+    <string name="shown">Shown</string>
+    <string name="hidden">Hidden</string>
+
     <!-- - - - - - - - - - - - - - - -
           - Used by Preferences  -
           - - - - - - - - - - - - - - - -->
