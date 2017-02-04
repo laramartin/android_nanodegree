@@ -51,8 +51,9 @@ public class VisualizerActivity extends AppCompatActivity {
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // TODO (4) Use resources here instead of the hard coded string and boolean
-        mVisualizerView.setShowBass(sharedPreferences.getBoolean("show_bass", true));
+        mVisualizerView.setShowBass(sharedPreferences.getBoolean(
+                getString(R.string.pref_show_bass_key),
+                getResources().getBoolean(R.bool.pref_show_bass_default)));
         mVisualizerView.setShowMid(true);
         mVisualizerView.setShowTreble(true);
         mVisualizerView.setMinSizeScale(1);
@@ -106,7 +107,7 @@ public class VisualizerActivity extends AppCompatActivity {
             mAudioInputReader.restart();
         }
     }
-    
+
     /**
      * App Permissions for Audio
      **/
@@ -116,7 +117,7 @@ public class VisualizerActivity extends AppCompatActivity {
             // And if we're on SDK M or later...
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // Ask again, nicely, for the permissions.
-                String[] permissionsWeNeed = new String[]{ Manifest.permission.RECORD_AUDIO };
+                String[] permissionsWeNeed = new String[]{Manifest.permission.RECORD_AUDIO};
                 requestPermissions(permissionsWeNeed, MY_PERMISSION_RECORD_AUDIO_REQUEST_CODE);
             }
         } else {
