@@ -18,4 +18,4 @@
     android:id="@+id/weather_settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.android.sunshine.SettingsActivity$SettingsFragment"/>
+    android:name="com.example.android.sunshine.SettingsFragment"/>
