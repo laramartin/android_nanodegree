@@ -57,13 +57,15 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
         return mCursor.getCount();
     }
 
-    // TODO (15) Create a new function called swapCursor that takes the new cursor and returns void
-
-    // TODO (16) Inside, check if the current cursor is not null, and close it if so
-
-    // TODO (17) Update the local mCursor to be equal to  newCursor
-
-    // TODO (18) Check if the newCursor is not null, and call this.notifyDataSetChanged() if so
+    public void swapCursor(Cursor newCursor) {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+        mCursor = newCursor;
+        if (newCursor != null) {
+            this.notifyDataSetChanged();
+        }
+    }
 
     /**
      * Inner class to hold the views needed to display a single item in the recycler-view
@@ -87,6 +89,5 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
             nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
             partySizeTextView = (TextView) itemView.findViewById(R.id.party_size_text_view);
         }
-
     }
 }
