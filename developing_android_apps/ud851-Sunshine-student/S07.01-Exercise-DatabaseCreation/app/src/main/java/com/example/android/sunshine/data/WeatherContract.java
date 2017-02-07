@@ -15,30 +15,39 @@
  */
 package com.example.android.sunshine.data;
 
+import android.provider.BaseColumns;
+
 /**
  * Defines table and column names for the weather database. This class is not necessary, but keeps
  * the code organized.
  */
 public class WeatherContract {
 
-//  TODO (1) Within WeatherContract, create a public static final class called WeatherEntry that implements BaseColumns
+    private WeatherContract() {
+    }
 
-//      Do steps 2 through 10 within the WeatherEntry class
+    public static final class WeatherEntry implements BaseColumns {
+        public static final String TABLE_NAME = "weather";
+        public static final String COLUMN_DATE = "date";
+        public static final String COLUMN_WEATHER_ID = "weather_id";
+        public static final String COLUMN_MIN_TEMP = "min";
+        public static final String COLUMN_MAX_TEMP = "max";
+        public static final String COLUMN_HUMIDITY = "humidity";
+        public static final String COLUMN_PRESSURE = "pressure";
+        public static final String COLUMN_WIND_SPEED = "wind";
+        public static final String COLUMN_DEGREES = "degrees";
 
-//      TODO (2) Create a public static final String call TABLE_NAME with the value "weather"
-
-//      TODO (3) Create a public static final String call COLUMN_DATE with the value "date"
-
-//      TODO (4) Create a public static final String call COLUMN_WEATHER_ID with the value "weather_id"
-
-//      TODO (5) Create a public static final String call COLUMN_MIN_TEMP with the value "min"
-//      TODO (6) Create a public static final String call COLUMN_MAX_TEMP with the value "max"
-
-//      TODO (7) Create a public static final String call COLUMN_HUMIDITY with the value "humidity"
-
-//      TODO (8) Create a public static final String call COLUMN_PRESSURE with the value "pressure"
-
-//      TODO (9) Create a public static final String call COLUMN_WIND_SPEED with the value "wind"
-
-//      TODO (10) Create a public static final String call COLUMN_DEGREES with the value "degrees"
+        public static final String CREATE_TABLE_WEATHER = "CREATE TABLE " +
+                WeatherEntry.TABLE_NAME + "(" +
+                WeatherEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                WeatherEntry.COLUMN_DATE + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL," +
+                WeatherEntry.COLUMN_MIN_TEMP + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_MAX_TEMP + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_HUMIDITY + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_PRESSURE + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_WIND_SPEED + " TEXT NOT NULL," +
+                WeatherEntry.COLUMN_DEGREES + " TEXT NOT NULL" +
+                ");";
+    }
 }
