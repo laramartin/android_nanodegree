@@ -95,21 +95,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Note that you shouldn't try to do this if the cursor hasn't been set yet.
         // If you reach the end of the list of words, you should start at the beginning again.
-        if (! mData.moveToNext()) {
-            mData.moveToFirst();
+        if (mData != null) {
+            if (!mData.moveToNext()) {
+                mData.moveToFirst();
+            }
+            mWordTextView.setText(mData.getString(mWordColIndex));
+            mDefinitionTextView.setVisibility(View.INVISIBLE);
+            mDefinitionTextView.setText(mData.getString(mDefColIndex));
+            mCurrentState = STATE_HIDDEN;
         }
-        mWordTextView.setText(mData.getString(mWordColIndex));
-        mDefinitionTextView.setVisibility(View.INVISIBLE);
-        mDefinitionTextView.setText(mData.getString(mDefColIndex));
-        mCurrentState = STATE_HIDDEN;
     }
 
     public void showDefinition() {
 
         // Change button text
-        mButton.setText(getString(R.string.next_word));
-        mCurrentState = STATE_SHOWN;
-        mDefinitionTextView.setVisibility(View.VISIBLE);
+        if (mData != null) {
+            mButton.setText(getString(R.string.next_word));
+            mCurrentState = STATE_SHOWN;
+            mDefinitionTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     // Use an async task to do the data fetch off of the main thread.
