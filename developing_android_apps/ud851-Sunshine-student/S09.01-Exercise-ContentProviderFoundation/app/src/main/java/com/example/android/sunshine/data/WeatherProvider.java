@@ -42,7 +42,7 @@ public class WeatherProvider extends ContentProvider {
     public static UriMatcher mUriMatcher = buildUriMatcher();
     WeatherDbHelper mOpenHelper;
 
-    private static UriMatcher buildUriMatcher() {
+    public static UriMatcher buildUriMatcher() {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(WeatherContract.CONTENT_AUTHORITY,
                 WeatherContract.PATH_WEATHER, CODE_WEATHER);
