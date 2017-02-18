@@ -306,12 +306,18 @@ public class WeatherProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         int rowsDeleted;
+        if (selection == null) {
+            selection = "1";
+        }
         switch (match) {
             case CODE_WEATHER:
-                rowsDeleted = db.delete(WeatherContract.WeatherEntry.TABLE_NAME, null, null);
+                rowsDeleted = db.delete(
+                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
                 break;
             default:
-                throw new UnsupportedOperationException("Couldn't delete");
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
         if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
