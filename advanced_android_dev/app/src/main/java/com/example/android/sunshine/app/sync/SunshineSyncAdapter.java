@@ -74,7 +74,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LOCATION_STATUS_OK, LOCATION_STATUS_SERVER_DOWN,
             LOCATION_STATUS_SERVER_INVALID, LOCATION_STATUS_UNKNOWN})
-    public @interface LocationMode {}
+    public @interface LocationStatus {}
     public static final int LOCATION_STATUS_OK = 0;
     public static final int LOCATION_STATUS_SERVER_DOWN = 1;
     public static final int LOCATION_STATUS_SERVER_INVALID = 2;
@@ -82,6 +82,14 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+    }
+
+    private void setLocationStatusInSharedPrefs(
+            Context context, @LocationStatus int locationStatus) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(context.getString(R.string.prefs_location_status_key), locationStatus);
+        editor.commit();
     }
 
     @Override
@@ -147,6 +155,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
+                setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_DOWN);
                 return;
             }
             forecastJsonStr = buffer.toString();
@@ -155,9 +164,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting
             // to parse it.
+            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_DOWN);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
+            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_INVALID);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -319,10 +330,12 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             Log.d(LOG_TAG, "Sync Complete. " + cVVector.size() + " Inserted");
+            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_OK);
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
+            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_INVALID);
         }
     }
 
