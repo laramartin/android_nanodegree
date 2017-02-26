@@ -226,9 +226,17 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         final String OWM_WEATHER = "weather";
         final String OWM_DESCRIPTION = "main";
         final String OWM_WEATHER_ID = "id";
+        final String OWM_MESSAGE_CODE = "cod";
 
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
+            if (forecastJson.has(OWM_MESSAGE_CODE)) {
+                Log.v("syncadapter", "json code: " + String.valueOf(forecastJson.getInt(OWM_MESSAGE_CODE)));
+                if (forecastJson.getInt(OWM_MESSAGE_CODE) == 502) {
+                    setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_INVALID);
+                    return;
+                }
+            }
             JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
             JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
