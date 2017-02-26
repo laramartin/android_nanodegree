@@ -164,7 +164,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting
             // to parse it.
-            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_DOWN);
+            setLocationStatusInSharedPrefs(getContext(), LOCATION_STATUS_SERVER_INVALID);
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();

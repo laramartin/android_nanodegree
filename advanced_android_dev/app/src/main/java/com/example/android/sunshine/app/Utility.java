@@ -270,7 +270,7 @@ public class Utility {
     public static void resetLocationStatus(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(context.getString(R.string.prefs_location_status_key),
+        editor.putInt(context.getString(R.string.prefs_location_status_key),
                 SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN);
         editor.commit();
     }
