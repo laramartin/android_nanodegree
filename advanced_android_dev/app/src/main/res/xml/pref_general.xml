@@ -40,4 +40,11 @@
         android:summaryOn="@string/pref_enable_notifications_true"
         android:title="@string/pref_enable_notifications_label" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_icon_pack_colored"
+        android:entries="@array/pref_icon_pack_options"
+        android:entryValues="@array/pref_icon_pack_values"
+        android:key="@string/pref_icon_pack_key"
+        android:title="@string/pref_icon_pack_label" />
+
 </PreferenceScreen>

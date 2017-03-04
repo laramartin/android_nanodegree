@@ -124,6 +124,13 @@
     <string name="a11y_low_temp">Low: <xliff:g id="low">%1$s</xliff:g></string>
 
     <!-- Format for retrieving art from an external source [CHAR LIMIT=NONE] -->
-   <string name="format_art_url" translatable="false">https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-xxhdpi/art_<xliff:g id="description">%s</xliff:g>.png</string>
+   <string name="format_art_url" translatable="false">https://raw.githubusercontent.com/udacity/sunshine_icons/master/Archive/<xliff:g id="description">%1$s</xliff:g>/art_<xliff:g id="high">%2$s</xliff:g>.png</string>
+
+    <string name="pref_icon_pack_colored" translatable="false">Colored</string>
+    <string name="pref_icon_pack_mono" translatable="false">Mono</string>
+    <string name="pref_icon_pack_label_colored">Colored</string>
+    <string name="pref_icon_pack_label_mono">Mono</string>
+    <string name="pref_icon_pack_key">prefsIconPack</string>
+    <string name="pref_icon_pack_label">Icon Pack</string>
 
 </resources>

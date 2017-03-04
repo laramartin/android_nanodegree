@@ -25,4 +25,14 @@
         <item>@string/pref_units_metric</item>
         <item>@string/pref_units_imperial</item>
     </string-array>
+
+    <string-array name="pref_icon_pack_options">
+        <item>@string/pref_icon_pack_label_colored</item>
+        <item>@string/pref_icon_pack_label_mono</item>
+    </string-array>
+
+    <string-array name="pref_icon_pack_values">
+        <item>@string/pref_icon_pack_colored</item>
+        <item>@string/pref_icon_pack_mono</item>
+    </string-array>
 </resources>
