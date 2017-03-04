@@ -25,4 +25,8 @@
     <color name="sunshine_blue">#ff1ca8f4</color>
     <color name="sunshine_dark_blue">#0288D1</color>
 
+    <color name="primary_text">#212121</color>
+    <color name="activated">#E0E0E0</color>
+    <color name="secondary_text">#727272</color>
+
 </resources>
