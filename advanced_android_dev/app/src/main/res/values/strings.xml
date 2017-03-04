@@ -123,4 +123,7 @@
     <string name="a11y_high_temp">High: <xliff:g id="high">%1$s</xliff:g></string>
     <string name="a11y_low_temp">Low: <xliff:g id="low">%1$s</xliff:g></string>
 
+    <!-- Format for retrieving art from an external source [CHAR LIMIT=NONE] -->
+   <string name="format_art_url" translatable="false">https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-xxhdpi/art_<xliff:g id="description">%s</xliff:g>.png</string>
+
 </resources>

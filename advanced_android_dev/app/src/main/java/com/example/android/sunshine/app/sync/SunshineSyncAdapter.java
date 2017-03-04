@@ -2,6 +2,7 @@ package com.example.android.sunshine.app.sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.AbstractThreadedSyncAdapter;
@@ -28,6 +29,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.example.android.sunshine.app.BuildConfig;
 import com.example.android.sunshine.app.MainActivity;
 import com.example.android.sunshine.app.R;
@@ -47,18 +49,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = SunshineSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
     public static final int SYNC_INTERVAL = 60 * 180;
-    public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
+    public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
 
-    private static final String[] NOTIFY_WEATHER_PROJECTION = new String[] {
+    private static final String[] NOTIFY_WEATHER_PROJECTION = new String[]{
             WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
             WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
             WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,
@@ -74,7 +77,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LOCATION_STATUS_OK, LOCATION_STATUS_SERVER_DOWN,
             LOCATION_STATUS_SERVER_INVALID, LOCATION_STATUS_UNKNOWN})
-    public @interface LocationStatus {}
+    public @interface LocationStatus {
+    }
+
     public static final int LOCATION_STATUS_OK = 0;
     public static final int LOCATION_STATUS_SERVER_DOWN = 1;
     public static final int LOCATION_STATUS_SERVER_INVALID = 2;
@@ -187,7 +192,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     /**
      * Take the String representing the complete forecast in JSON Format and
      * pull out the data we need to construct the Strings needed for the wireframes.
-     *
+     * <p>
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
@@ -268,7 +273,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             // now we work exclusively in UTC
             dayTime = new Time();
 
-            for(int i = 0; i < weatherArray.length(); i++) {
+            for (int i = 0; i < weatherArray.length(); i++) {
                 // These are the values that will be collected.
                 long dateTime;
                 double pressure;
@@ -286,7 +291,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 JSONObject dayForecast = weatherArray.getJSONObject(i);
 
                 // Cheating to convert this to UTC time, which is what we want anyhow
-                dateTime = dayTime.setJulianDay(julianStartDay+i);
+                dateTime = dayTime.setJulianDay(julianStartDay + i);
 
                 pressure = dayForecast.getDouble(OWM_PRESSURE);
                 humidity = dayForecast.getInt(OWM_HUMIDITY);
@@ -324,7 +329,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
             int inserted = 0;
             // add to database
-            if ( cVVector.size() > 0 ) {
+            if (cVVector.size() > 0) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
                 getContext().getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, cvArray);
@@ -332,7 +337,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 // delete old data so we don't build up an endless history
                 getContext().getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
                         WeatherContract.WeatherEntry.COLUMN_DATE + " <= ?",
-                        new String[] {Long.toString(dayTime.setJulianDay(julianStartDay-1))});
+                        new String[]{Long.toString(dayTime.setJulianDay(julianStartDay - 1))});
 
                 notifyWeather();
             }
@@ -355,7 +360,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         boolean displayNotifications = prefs.getBoolean(displayNotificationsKey,
                 Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
 
-        if ( displayNotifications ) {
+        if (displayNotifications) {
 
             String lastNotificationKey = context.getString(R.string.pref_last_notification);
             long lastSync = prefs.getLong(lastNotificationKey, 0);
@@ -377,8 +382,33 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
                     int iconId = Utility.getIconResourceForWeatherCondition(weatherId);
                     Resources resources = context.getResources();
-                    Bitmap largeIcon = BitmapFactory.decodeResource(resources,
-                            Utility.getArtResourceForWeatherCondition(weatherId));
+                    int artResourceId = Utility.getArtResourceForWeatherCondition(weatherId);
+                    String artUrl = Utility.getArtUrlForWeatherCondition(context, weatherId);
+
+                    // On Honeycomb and higher devices, we can retrieve the size of the large icon
+                    // Prior to that, we use a fixed size
+                    @SuppressLint("InlinedApi")
+                    int largeIconWidth = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB
+                            ? resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_width)
+                            : resources.getDimensionPixelSize(R.dimen.notification_large_icon_default);
+                    @SuppressLint("InlinedApi")
+                    int largeIconHeight = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB
+                            ? resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_height)
+                            : resources.getDimensionPixelSize(R.dimen.notification_large_icon_default);
+
+                    // Retrieve the large icon
+                    Bitmap largeIcon;
+                    try {
+                        largeIcon = Glide.with(context)
+                                .load(artUrl)
+                                .asBitmap()
+                                .error(artResourceId)
+                                .fitCenter()
+                                .into(largeIconWidth, largeIconHeight).get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        Log.e(LOG_TAG, "Error retrieving large icon from " + artUrl, e);
+                        largeIcon = BitmapFactory.decodeResource(resources, artResourceId);
+                    }
                     String title = context.getString(R.string.app_name);
 
                     // Define the text of the forecast.
@@ -433,9 +463,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
      * Helper method to handle insertion of a new location in the weather database.
      *
      * @param locationSetting The location string used to request updates from the server.
-     * @param cityName A human-readable city name, e.g "Mountain View"
-     * @param lat the latitude of the city
-     * @param lon the longitude of the city
+     * @param cityName        A human-readable city name, e.g "Mountain View"
+     * @param lat             the latitude of the city
+     * @param lon             the longitude of the city
      * @return the row ID of the added location.
      */
     long addLocation(String locationSetting, String cityName, double lat, double lon) {
@@ -500,6 +530,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     /**
      * Helper method to have the sync adapter sync immediately
+     *
      * @param context The context used to access the account service
      */
     public static void syncImmediately(Context context) {
@@ -528,7 +559,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 context.getString(R.string.app_name), context.getString(R.string.sync_account_type));
 
         // If the password doesn't exist, the account doesn't exist
-        if ( null == accountManager.getPassword(newAccount) ) {
+        if (null == accountManager.getPassword(newAccount)) {
 
         /*
          * Add the account and account type, no password or user data

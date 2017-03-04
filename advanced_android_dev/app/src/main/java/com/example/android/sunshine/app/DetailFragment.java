@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
 
@@ -149,7 +150,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         super.onActivityCreated(savedInstanceState);
     }
 
-    void onLocationChanged( String newLocation ) {
+    void onLocationChanged(String newLocation) {
         // replace the uri, since the location has changed
         Uri uri = mUri;
         if (null != uri) {
@@ -162,7 +163,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if ( null != mUri ) {
+        if (null != mUri) {
             // Now create and return a CursorLoader that will take care of
             // creating a Cursor for the data being displayed.
             return new CursorLoader(
@@ -184,8 +185,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
 
             // Use weather art image
-            mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
-
+            Glide.with(this)
+                    .load(Utility.getArtUrlForWeatherCondition(getActivity(), weatherId))
+                    .error(Utility.getArtResourceForWeatherCondition(weatherId))
+                    .crossFade()
+                    .into(mIconView);
             // Read date from cursor and update views for day of week and date
             long date = data.getLong(COL_WEATHER_DATE);
             String friendlyDateText = Utility.getDayName(getActivity(), date);
@@ -241,5 +245,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) { }
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
 }
