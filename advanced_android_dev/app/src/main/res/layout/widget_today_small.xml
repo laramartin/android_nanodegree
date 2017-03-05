@@ -8,7 +8,7 @@
         android:id="@+id/widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/touch_selector_white"
+        android:background="@color/sunshine_blue"
         android:orientation="vertical"
         android:padding="4dp">
 

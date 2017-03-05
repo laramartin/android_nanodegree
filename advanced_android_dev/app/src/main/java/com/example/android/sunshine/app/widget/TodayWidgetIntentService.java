@@ -9,7 +9,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.RemoteViews;
 
 import com.example.android.sunshine.app.MainActivity;
@@ -88,10 +90,17 @@ public class TodayWidgetIntentService extends IntentService {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
             appWidgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
             int widthInDp = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-            if (widthInDp >= getResources().getDimensionPixelSize(R.dimen.widget_today_large_width)) {
+            // The width returned is in dp, but we'll convert it to pixels to match the other widths
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int widthInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp,
+                    displayMetrics);
+            Log.v(LOG_TAG, "width pixels: " + String.valueOf(widthInPixels));
+            if (widthInPixels >= getResources().getDimensionPixelSize(R.dimen.widget_today_large_width)) {
+                Log.v(LOG_TAG, "pixels: " + String.valueOf(getResources().getDimensionPixelSize(R.dimen.widget_today_large_width)));
                 Log.v(LOG_TAG, "layout widget large");
                 return R.layout.widget_today_large;
-            } else if (widthInDp >= getResources().getDimensionPixelSize(R.dimen.widget_today_default_width)) {
+            } else if (widthInPixels >= getResources().getDimensionPixelSize(R.dimen.widget_today_default_width)) {
+                Log.v(LOG_TAG, "pixels: " + String.valueOf(getResources().getDimensionPixelSize(R.dimen.widget_today_default_width)));
                 Log.v(LOG_TAG, "layout widget medium");
                 return R.layout.widget_today;
             } else {

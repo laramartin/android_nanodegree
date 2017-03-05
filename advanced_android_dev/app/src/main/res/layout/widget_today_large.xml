@@ -2,14 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/touch_selector_white"
+        android:background="@color/sunshine_blue"
         android:padding="8dp">
 
         <ImageView
@@ -43,7 +42,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             tools:text="48" />
 
         <TextView
