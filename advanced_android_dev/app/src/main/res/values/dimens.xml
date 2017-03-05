@@ -18,10 +18,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="notification_large_icon_default">48dp</dimen>
-    <dimen name="widget_today_min_resize_width">40dp</dimen>
     <dimen name="widget_margin">40dp</dimen>
+    <dimen name="widget_today_default_width">110dp</dimen>
     <dimen name="widget_today_default_height">40dp</dimen>
-    <dimen name="widget_today_min_resize_height">@dimen/widget_detail_default_height</dimen>
-    <dimen name="widget_today_default_width">250dp</dimen>
-    <dimen name="widget_detail_default_height">180dp</dimen>
+    <dimen name="widget_today_min_resize_width">40dp</dimen>
+    <dimen name="widget_today_min_resize_height">@dimen/widget_today_default_height</dimen>
+    <dimen name="widget_today_large_width">220dp</dimen>
 </resources>

@@ -7,7 +7,9 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.android.sunshine.app.MainActivity;
@@ -30,6 +32,7 @@ public class TodayWidgetIntentService extends IntentService {
     private static final int INDEX_WEATHER_ID = 0;
     private static final int INDEX_SHORT_DESC = 1;
     private static final int INDEX_MAX_TEMP = 2;
+    private static final String LOG_TAG = TodayWidgetIntentService.class.getCanonicalName();
 
     public TodayWidgetIntentService() {
         super("TodayWidgetIntentService");
@@ -66,11 +69,11 @@ public class TodayWidgetIntentService extends IntentService {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(
                     getPackageName(),
-                    R.layout.widget_today_small);
+                    getWidgetLayout(appWidgetManager, appWidgetId));
 
             views.setImageViewResource(R.id.widget_icon, weatherArtResourceId);
-
             views.setTextViewText(R.id.widget_high_temperature, formattedMaxTemperature);
+            views.setTextViewText(R.id.widget_description, description);
 
             Intent launchIntent = new Intent(this, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, launchIntent, 0);
@@ -78,5 +81,25 @@ public class TodayWidgetIntentService extends IntentService {
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
+    }
+
+    private int getWidgetLayout(AppWidgetManager appWidgetManager, int appWidgetId) {
+        Bundle appWidgetOptions;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            appWidgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+            int widthInDp = appWidgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+            if (widthInDp >= getResources().getDimensionPixelSize(R.dimen.widget_today_large_width)) {
+                Log.v(LOG_TAG, "layout widget large");
+                return R.layout.widget_today_large;
+            } else if (widthInDp >= getResources().getDimensionPixelSize(R.dimen.widget_today_default_width)) {
+                Log.v(LOG_TAG, "layout widget medium");
+                return R.layout.widget_today;
+            } else {
+                Log.v(LOG_TAG, "layout widget small");
+                return R.layout.widget_today_small;
+            }
+        }
+        Log.v(LOG_TAG, "layout widget medium");
+        return R.layout.widget_today;
     }
 }
