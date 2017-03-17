@@ -42,11 +42,9 @@ public class TodayWidgetIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        // Retrieve all of the Today widget ids: these are the widgets we need to update
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this,
                 TodayWidgetProvider.class));
-        // Get today's data from the ContentProvider
         String location = Utility.getPreferredLocation(this);
         Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
                 location, System.currentTimeMillis());
@@ -59,15 +57,12 @@ public class TodayWidgetIntentService extends IntentService {
             data.close();
             return;
         }
-        // Extract the weather data from the Cursor
         int weatherId = data.getInt(INDEX_WEATHER_ID);
         int weatherArtResourceId = Utility.getArtResourceForWeatherCondition(weatherId);
         String description = data.getString(INDEX_SHORT_DESC);
         double maxTemp = data.getDouble(INDEX_MAX_TEMP);
         String formattedMaxTemperature = Utility.formatTemperature(this, maxTemp);
         data.close();
-
-
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(
                     getPackageName(),
@@ -76,11 +71,9 @@ public class TodayWidgetIntentService extends IntentService {
             views.setImageViewResource(R.id.widget_icon, weatherArtResourceId);
             views.setTextViewText(R.id.widget_high_temperature, formattedMaxTemperature);
             views.setTextViewText(R.id.widget_description, description);
-
             Intent launchIntent = new Intent(this, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, launchIntent, 0);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
