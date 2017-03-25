@@ -204,5 +204,7 @@
     <!-- Value in SharedPreferences for Sunshine art pack option [CHAR LIMIT=NONE] -->
     <string name="pref_art_pack_sunshine" translatable="false">https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-xxhdpi/art_%s.png</string>
 
+    <!-- Strings related to Muzei Source -->
+    <string name="muzei_description">Today\'s weather</string>
 
 </resources>
