@@ -13,12 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/accent</item>
+        <item name="android:toolbarStyle" tools:targetApi="lollipop">@style/ToolBar</item>
     </style>
 
     <!-- Main activity theme. -->
@@ -40,6 +42,11 @@
     <style name="ForecastListStyle">
         <!-- Here it's a stub.  In screens of sufficient width, this style includes modifications
         for two-pane layout -->
+    </style>
+
+    <style name="ToolBar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:popupTheme" tools:targetApi="lollipop">@style/Platform.AppCompat.Light</item>
     </style>
 
 </resources>
