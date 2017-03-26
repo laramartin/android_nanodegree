@@ -32,4 +32,7 @@
     <dimen name="forecast_widget_text_width">38dp</dimen>
     <dimen name="forecast_temperature_space">8dp</dimen>
     <dimen name="list_icon">40dp</dimen>
+    <dimen name="forecast_detail_horizontal_padding">32dp</dimen>
+    <dimen name="today_icon">96dp</dimen>
+    <dimen name="detail_view_extra_padding">@dimen/abc_list_item_padding_horizontal_material</dimen>
 </resources>
