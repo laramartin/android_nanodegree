@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -382,5 +383,14 @@ public class Utility {
             return "http://upload.wikimedia.org/wikipedia/commons/5/54/Cloudy_hills_in_Elis,_Greece_2.jpg";
         }
         return null;
+    }
+
+    public static String getFullFriendlyDayString(Context context, long dateInMillis) {
+        String day = getDayName(context, dateInMillis);
+        int formatId = R.string.format_full_friendly_date;
+        return String.format(context.getString(
+                formatId,
+                day,
+                getFormattedMonthDay(context, dateInMillis)));
     }
 }

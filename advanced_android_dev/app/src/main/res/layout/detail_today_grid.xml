@@ -19,6 +19,11 @@
     android:background="@android:color/white"
     app:columnCount="2">
 
+    <android.support.v4.widget.Space
+        app:layout_columnSpan="2"
+        app:layout_columnWeight="1"
+        app:layout_rowWeight="1" />
+
     <TextView
         android:id="@+id/detail_date_textview"
         android:layout_marginBottom="@dimen/abc_list_item_padding_horizontal_material"
@@ -73,5 +78,10 @@
         android:textSize="36sp"
         app:layout_columnWeight="1"
         tools:text="10" />
+
+    <android.support.v4.widget.Space
+        app:layout_columnSpan="2"
+        app:layout_columnWeight="1"
+        app:layout_rowWeight="1" />
 
 </android.support.v7.widget.GridLayout>

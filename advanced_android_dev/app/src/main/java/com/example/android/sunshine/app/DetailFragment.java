@@ -24,7 +24,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,7 +87,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private ImageView mIconView;
     private TextView mFriendlyDateView;
-//    private TextView mDateView;
+    private TextView mDateView;
     private TextView mDescriptionView;
     private TextView mHighTempView;
     private TextView mLowTempView;
@@ -108,7 +110,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
-//        mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
+        mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
 //        mFriendlyDateView = (TextView) rootView.findViewById(R.id.detail_day_textview);
         mFriendlyDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
         mDescriptionView = (TextView) rootView.findViewById(R.id.detail_forecast_textview);
@@ -117,6 +119,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         mHumidityView = (TextView) rootView.findViewById(R.id.detail_humidity_textview);
         mWindView = (TextView) rootView.findViewById(R.id.detail_wind_textview);
         mPressureView = (TextView) rootView.findViewById(R.id.detail_pressure_textview);
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return rootView;
     }
 
@@ -193,10 +200,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                     .into(mIconView);
             // Read date from cursor and update views for day of week and date
             long date = data.getLong(COL_WEATHER_DATE);
-            String friendlyDateText = Utility.getDayName(getActivity(), date);
-            String dateText = Utility.getFormattedMonthDay(getActivity(), date);
-            mFriendlyDateView.setText(friendlyDateText);
-//            mDateView.setText(dateText);
+            String dateText = Utility.getFullFriendlyDayString(getActivity(),date);
+            mDateView.setText(dateText);
 
             // Read description from cursor and update view
             String description = data.getString(COL_WEATHER_DESC);
