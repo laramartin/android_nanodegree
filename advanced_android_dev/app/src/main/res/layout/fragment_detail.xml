@@ -21,7 +21,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white" />
+        android:background="@color/primary" />
 
     <include
         layout="@layout/detail_today_grid"
