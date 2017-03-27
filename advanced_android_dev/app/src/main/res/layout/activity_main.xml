@@ -20,11 +20,13 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
         style="@style/ToolBar">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_height="?attr/listPreferredItemHeight"
             android:src="@drawable/ic_logo"
             android:scaleType="center"/>
     </android.support.v7.widget.Toolbar>
