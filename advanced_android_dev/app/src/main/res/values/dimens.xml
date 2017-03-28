@@ -44,4 +44,5 @@
      on devices that don't yet have Roboto -->
     <dimen name="forecast_text_width">49dp</dimen>
     <dimen name="forecast_temperature_space">8dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
 </resources>
