@@ -20,7 +20,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.android.boardingpass.databinding.ActivityMainBinding;
+import com.example.android.boardingpass.databinding.BoardingInfoBinding;
+import com.example.android.boardingpass.databinding.FlightInfoBinding;
 import com.example.android.boardingpass.utilities.FakeDataUtils;
 
 import java.text.SimpleDateFormat;
@@ -29,20 +30,21 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding mBinding;
+    FlightInfoBinding mBinding;
+    BoardingInfoBinding mBoardingBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /*
          * DataBindUtil.setContentView replaces our normal call of setContent view.
          * DataBindingUtil also created our ActivityMainBinding that we will eventually use to
          * display all of our data.
          */
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.flight_info);
+        mBoardingBinding = DataBindingUtil.setContentView(this, R.layout.boarding_info);
         BoardingPassInfo fakeBoardingInfo = FakeDataUtils.generateFakeBoardingPassInfo();
         displayBoardingPassInfo(fakeBoardingInfo);
     }
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     private void displayBoardingPassInfo(BoardingPassInfo info) {
 
         mBinding.textViewPassengerName.setText(info.passengerName);
-        // TODO (7) Use the flightInfor attribute in mBinding below to get the appropiate text Views
         mBinding.textViewOriginAirport.setText(info.originCode);
         mBinding.textViewFlightCode.setText(info.flightCode);
         mBinding.textViewDestinationAirport.setText(info.destCode);
@@ -74,10 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 minutesLessHoursUntilBoarding);
 
         mBinding.textViewBoardingInCountdown.setText(hoursAndMinutesUntilBoarding);
-        // TODO (8) Use the boardingInfo attribute in mBinding below to get the appropiate text Views
-        mBinding.textViewTerminal.setText(info.departureTerminal);
-        mBinding.textViewGate.setText(info.departureGate);
-        mBinding.textViewSeat.setText(info.seatNumber);
+        mBoardingBinding.textViewTerminal.setText(info.departureTerminal);
+        mBoardingBinding.textViewGate.setText(info.departureGate);
+        mBoardingBinding.textViewSeat.setText(info.seatNumber);
     }
 }
 
