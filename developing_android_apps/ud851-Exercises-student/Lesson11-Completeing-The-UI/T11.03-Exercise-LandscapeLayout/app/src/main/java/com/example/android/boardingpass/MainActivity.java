@@ -20,8 +20,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.android.boardingpass.databinding.BoardingInfoBinding;
-import com.example.android.boardingpass.databinding.FlightInfoBinding;
+import com.example.android.boardingpass.databinding.ActivityMainBinding;
 import com.example.android.boardingpass.utilities.FakeDataUtils;
 
 import java.text.SimpleDateFormat;
@@ -30,8 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    FlightInfoBinding mBinding;
-    BoardingInfoBinding mBoardingBinding;
+    ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
          * DataBindingUtil also created our ActivityMainBinding that we will eventually use to
          * display all of our data.
          */
-        mBinding = DataBindingUtil.setContentView(this, R.layout.flight_info);
-        mBoardingBinding = DataBindingUtil.setContentView(this, R.layout.boarding_info);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         BoardingPassInfo fakeBoardingInfo = FakeDataUtils.generateFakeBoardingPassInfo();
         displayBoardingPassInfo(fakeBoardingInfo);
     }
@@ -52,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private void displayBoardingPassInfo(BoardingPassInfo info) {
 
         mBinding.textViewPassengerName.setText(info.passengerName);
-        mBinding.textViewOriginAirport.setText(info.originCode);
-        mBinding.textViewFlightCode.setText(info.flightCode);
-        mBinding.textViewDestinationAirport.setText(info.destCode);
+        mBinding.flightInfo.textViewOriginAirport.setText(info.originCode);
+        mBinding.flightInfo.textViewFlightCode.setText(info.flightCode);
+        mBinding.flightInfo.textViewDestinationAirport.setText(info.destCode);
 
         SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault());
         String boardingTime = formatter.format(info.boardingTime);
@@ -75,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 minutesLessHoursUntilBoarding);
 
         mBinding.textViewBoardingInCountdown.setText(hoursAndMinutesUntilBoarding);
-        mBoardingBinding.textViewTerminal.setText(info.departureTerminal);
-        mBoardingBinding.textViewGate.setText(info.departureGate);
-        mBoardingBinding.textViewSeat.setText(info.seatNumber);
+        mBinding.boardingInfo.textViewTerminal.setText(info.departureTerminal);
+        mBinding.boardingInfo.textViewGate.setText(info.departureGate);
+        mBinding.boardingInfo.textViewSeat.setText(info.seatNumber);
     }
 }
 

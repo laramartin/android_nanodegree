@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/tableHeaderImage"
             android:layout_width="0dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="32dp"
             android:background="@color/colorPrimaryLight"
             app:layout_constraintHorizontal_bias="0.33"
@@ -25,14 +22,11 @@
             android:id="@+id/tableImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:background="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/textViewTerminal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableHeaderImage" />
-
 
         <TextView
             android:id="@+id/textViewTerminalLabel"
@@ -44,7 +38,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/tableHeaderImage"
             app:layout_constraintLeft_toLeftOf="@+id/textViewTerminal"
             app:layout_constraintRight_toRightOf="@+id/textViewTerminal"
-
             app:layout_constraintTop_toTopOf="@+id/tableHeaderImage" />
 
         <TextView
@@ -84,7 +77,6 @@
             app:layout_constraintTop_toTopOf="@+id/tableImage"
             tools:text="@string/terminal" />
 
-
         <TextView
             android:id="@+id/textViewGate"
             android:layout_width="120dp"
@@ -111,15 +103,5 @@
             app:layout_constraintTop_toTopOf="@+id/tableImage"
             tools:text="@string/seat" />
 
-
-        <ImageView
-            android:id="@+id/barcode"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableImage"
-            app:srcCompat="@mipmap/barcode" />
     </android.support.constraint.ConstraintLayout>
 </layout>
