@@ -217,8 +217,6 @@
 
     <string name="condition_unknown">Unknown (<xliff:g id="conditionId">%1$d</xliff:g>)</string>
 
-
-
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       - Used for Accessibility purposes (Accessibility == a11y)                            -
       -                                                                                    -
@@ -232,8 +230,6 @@
     <string name="a11y_humidity">Humidity: <xliff:g id="humidity">%1$s</xliff:g></string>
     <string name="a11y_pressure">Barometric Pressure: <xliff:g id="pressure">%1$s</xliff:g></string>
     <string name="a11y_wind">Wind speed and direction: <xliff:g id="wind">%1$s</xliff:g></string>
-
-
 
     <!-- Used by NotificationUtils -->
 
