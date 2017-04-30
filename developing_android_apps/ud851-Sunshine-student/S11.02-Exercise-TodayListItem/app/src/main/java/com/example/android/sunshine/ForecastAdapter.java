@@ -34,8 +34,7 @@ import com.example.android.sunshine.utilities.SunshineWeatherUtils;
  */
 class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
 
-//  TODO (1) Add a layout called list_item_forecast_today
-//  TODO (2) Using ConstraintLayout, implement the today list item layout
+
 
 //  TODO (4) Create a resources file called bools.xml within the res/values-port directory
 //  TODO (5) Within bools.xml in the portrait specific directory, add a bool called use_today_layout and set it to false
