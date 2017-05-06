@@ -20,5 +20,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.1'
-    // TODO (1) Add gradle dependency for Firebase Job Dispatcher
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
 }
