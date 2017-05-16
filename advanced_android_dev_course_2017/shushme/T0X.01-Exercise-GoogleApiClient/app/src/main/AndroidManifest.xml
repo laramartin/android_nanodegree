@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- TODO (1) Add meta-data tag with API key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB1ZxanisJRy3Ama1MGqrC52vY4mGSBmbI" />
 
         <activity android:name="com.example.android.shushme.MainActivity">
             <intent-filter>
@@ -21,10 +23,11 @@
         <provider
             android:name="com.example.android.shushme.provider.PlaceContentProvider"
             android:authorities="com.example.android.shushme"
-            android:exported="false"/>
+            android:exported="false" />
 
     </application>
 
-    <!-- TODO (2) Add uses-permission tags for INTERNET and ACCESS_FINE_LOCATION -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
