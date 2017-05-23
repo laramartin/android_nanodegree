@@ -70,3 +70,10 @@ task lists {
         allCapsList.each{println it}
     }
 }
+
+task experiments {
+      doLast {
+        def foo = "bar"
+        println "$foo + foo = ${foo + "foo"}"
+      }
+}
