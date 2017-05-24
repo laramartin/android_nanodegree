@@ -1,6 +1,6 @@
 /*
     In this series of exercies you'll be configuring tasks to copy and delete
-    files as well as build archives. This example contains some sample files 
+    files as well as build archives. This example contains some sample files
     that you'll be using to complete the exercises below.
 
     Exercises:
@@ -21,6 +21,46 @@
     HINT: There isn't an UnZip task, so what task type do you need? You're kinda copying files so...
     HINT: https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#org.gradle.api.Project:zipTree(java.lang.Object)
 
-    4. Create a task named "deleteHelp". This task should perform the following:
-        a) Delete the "help" folder created by the "copyWeb" task.
+
 */
+// task copyWeb(type: Copy) {
+//   from('src/web') {
+//     into 'build/web'
+//   }
+//
+//   from('src/docs') {
+//     include '*.txt'
+//     into 'build/web/help'
+//   }
+// }
+
+task copyWeb(type: Copy) {
+    from 'src/web'
+    from('src/docs') {
+        include '*.txt'
+        into 'help'
+    }
+    into 'build/web'
+}
+
+task bundleWeb(type: Zip, dependsOn: copyWeb) {
+  baseName = 'web'
+  destinationDir = file('build')
+  from 'build/web'
+  exclude 'images/**'
+}
+
+// 3. Create a task named "unpackBundle". This task should perform the following:
+//     a) Expand the zip file created by the "bundleWeb" task.
+//     b) Copy the contents to a folder "build/exploded".
+
+task unpackBundle(type: Copy, dependsOn: bundleWeb) {
+  from zipTree('build/web.zip')
+  into 'build/exploded'
+}
+
+// 4. Create a task named "deleteHelp". This task should perform the following:
+//     a) Delete the "help" folder created by the "copyWeb" task.
+task deleteHelp(type: Delete, dependsOn: copyWeb) {
+  delete 'build/web/help'
+}
