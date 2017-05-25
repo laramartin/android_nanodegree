@@ -1,4 +1,4 @@
-/* 
+/*
 
 In this series of exercises you'll be practicing different ways to pass
 properties into your Gradle build. We've again provided a set of sources files
@@ -19,10 +19,16 @@ determines the name of the zip file created by "bundleWeb" (Continue passing
 in the webOutputDir property via the command line).
 
 */
+ext {
+    zipFileName = 'web2' // 4. Define extra property
+}
 
 task bundleWeb(type: Zip) {
-    baseName = 'web'
+    baseName = zipFileName
     destinationDir = file(webOutputDir)
 
     from 'src/web'
 }
+
+
+//exercise 3: gradle -PwebOutputDir=build2 bundleWeb
