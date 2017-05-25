@@ -28,3 +28,29 @@ apply plugin: 'java'
 repositories {
     mavenCentral()
 }
+
+// 1. Create a new configuration called 'deps'.
+// 2. Make the 'compile' configuration extend from the 'deps' configuration.
+configurations {
+    deps
+    compile.extendsFrom deps
+}
+
+// 3. Add a dependency to the latest version of Google's 'guava' library to
+//    the 'deps' configuration.
+dependencies {
+    deps 'com.google.guava:guava:18.0'
+}
+
+// 4. Build the project and ensure there are no errors.
+// 5. Add a task called 'zipDeps' that creates a Zip file including all the
+//    files from the 'deps' configuration. Assign a baseName of 'dependencyArchive'
+//    and a  classifier of 'deps' to the archive.
+
+task zipDeps(type: Zip) {
+  from configurations.deps
+  baseName = 'dependencyArchive'
+  classifier = 'deps'
+}
+
+// 6. Run the 'zipDeps' task and confirm it includes the 'guava' JAR.
