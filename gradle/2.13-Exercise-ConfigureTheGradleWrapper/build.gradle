@@ -19,3 +19,15 @@ Hint: For more information on using Gradle nightly builds, check out the
 Gradle website: http://gradle.org/gradle-nightly-build/
 
 */
+
+// 1. Run the 'wrapper' task to create the Gradle wrapper files.
+// 2. Use the wrapper to run the 'tasks' task.
+// 3. Configure the 'wrapper' task to use Gradle version 2.14.1.
+wrapper {
+    gradleVersion = '2.14.1'
+}
+
+// 4. Use the wrapper with the '--version' option to confirm it is using
+//    Gradle version 2.14.1.
+// 5. Modify the gradle-wrapper.properties file to use the latest Gradle
+//    nightly build.
