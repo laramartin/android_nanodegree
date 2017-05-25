@@ -31,4 +31,22 @@ task printDependencies {
     doLast {
         configurations.compile.each { println it.name }
     }
+}\
+
+// 1. Configure Maven Central as a repository
+repositories {
+  mavenCentral()
 }
+
+// 2. Add a dependency to the 'compile' configuration for the latest version
+//    of commons-io.
+// 3. Add a file dependency that includes all the jars in the `libs` directory.
+dependencies {
+  compile 'commons-io:commons-io:20030203.000550'
+  compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+// 4. Run the `printDependencies` task to verify the dependencies.
+// 5. Run the `printDependencies` task with the --refresh-dependencies flag.
+// 6. Run the `printDependencies` task one more time and note the difference in
+//    run time.
