@@ -54,3 +54,9 @@ task zipDeps(type: Zip) {
 }
 
 // 6. Run the 'zipDeps' task and confirm it includes the 'guava' JAR.
+task quiz(type: Zip) {
+  from configurations.deps
+  version = "4.2"
+  baseName = 'Foo'
+  classifier = 'SNAPSHOT'
+}
