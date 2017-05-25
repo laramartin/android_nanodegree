@@ -36,3 +36,15 @@ task bundleSources(type: Zip, dependsOn: copySources) {
 
     from 'build/out'
 }
+
+task deleteBuildDir(type: Delete, dependsOn: copySources) {
+  delete 'build'
+}
+
+task deleteBundleZip(type: Delete, dependsOn: bundleSources) {
+  delete 'build/sources.zip'
+}
+
+task deleteBuildOutDir(type: Delete, dependsOn: copySources) {
+  delete 'build/out'
+}
