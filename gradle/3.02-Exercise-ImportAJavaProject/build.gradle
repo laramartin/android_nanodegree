@@ -19,4 +19,8 @@ solution file into this one.
 
 */
 
-//apply from: "solution.gradle"
+apply plugin: 'java'
+apply from: "solution.gradle"
+
+// in AS terminal run:
+// gradle run
